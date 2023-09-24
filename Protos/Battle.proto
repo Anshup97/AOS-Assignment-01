@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.examples.helloworld";
+option java_outer_classname = "HelloWorldProto";
+option objc_class_prefix = "HLW";
+
+package battle;
+
+// The greeting service definition.
+service Battle {
+  // Sends a greeting
+  rpc missile_launched (MissileLaunchRequest) returns (MissileLaunchReply) {}
+
+}
+
+// The request message containing the user's name.
+message MissileLaunchRequest {
+  int32 x_coordinate = 1;
+  int32 y_coordinate = 2;
+}
+
+message MissileLaunchReply {
+  String message = 1;
+}
+
