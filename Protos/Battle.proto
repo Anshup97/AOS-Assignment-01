@@ -10,7 +10,9 @@ package battle;
 // The greeting service definition.
 service Battle {
   // Sends a greeting
-  rpc missile_launched (MissileLaunchRequest) returns (MissileLaunchReply) {}
+  rpc missile_launched (stream MissileLaunchRequest) returns (MissileLaunchReply) {}
+
+  rpc SendGameDetails (GameDetailsRequest) returns (GameDetailsReply) {}
 
 }
 
@@ -21,6 +23,19 @@ message MissileLaunchRequest {
 }
 
 message MissileLaunchReply {
-  String message = 1;
+  string message = 1;
+}
+
+message GameDetailsReply {
+  string message = 1;
+}
+
+message GameDetailsRequest {
+
+  int32 N = 1;
+  int32 M = 2;
+  int32 T = 3;
+  int32 t = 4;
+
 }
 

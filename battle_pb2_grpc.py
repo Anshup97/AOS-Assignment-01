@@ -20,6 +20,11 @@ class BattleStub(object):
                 request_serializer=battle__pb2.MissileLaunchRequest.SerializeToString,
                 response_deserializer=battle__pb2.MissileLaunchReply.FromString,
                 )
+        self.SendGameDetails = channel.unary_unary(
+                '/battle.Battle/SendGameDetails',
+                request_serializer=battle__pb2.GameDetailsRequest.SerializeToString,
+                response_deserializer=battle__pb2.GameDetailsReply.FromString,
+                )
 
 
 class BattleServicer(object):
@@ -33,6 +38,12 @@ class BattleServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SendGameDetails(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_BattleServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -40,6 +51,11 @@ def add_BattleServicer_to_server(servicer, server):
                     servicer.missile_launched,
                     request_deserializer=battle__pb2.MissileLaunchRequest.FromString,
                     response_serializer=battle__pb2.MissileLaunchReply.SerializeToString,
+            ),
+            'SendGameDetails': grpc.unary_unary_rpc_method_handler(
+                    servicer.SendGameDetails,
+                    request_deserializer=battle__pb2.GameDetailsRequest.FromString,
+                    response_serializer=battle__pb2.GameDetailsReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -66,5 +82,22 @@ class Battle(object):
         return grpc.experimental.unary_unary(request, target, '/battle.Battle/missile_launched',
             battle__pb2.MissileLaunchRequest.SerializeToString,
             battle__pb2.MissileLaunchReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SendGameDetails(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/battle.Battle/SendGameDetails',
+            battle__pb2.GameDetailsRequest.SerializeToString,
+            battle__pb2.GameDetailsReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

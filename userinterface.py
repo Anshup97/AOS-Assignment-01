@@ -77,6 +77,11 @@ def run():
     T = int(input('Enter the duration of the battle (in secs): '))
     t = int(input('Enter the time gap between two missile launches(in secs): '))
 
+    with grpc.insecure_channel("localhost:50051") as channel:
+            stub = battle_pb2_grpc.BattleStub(channel)
+            request = battle_pb2.GameDetailsRequest(N=N, M=M, T=T, t=t)
+            response = stub.SendGameDetails(request)
+
     for sol in soldiersList:
         print(sol.soldierId, sol.portNo)
 

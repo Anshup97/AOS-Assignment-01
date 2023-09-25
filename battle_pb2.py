@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0c\x62\x61ttle.proto\x12\x06\x62\x61ttle\"B\n\x14MissileLaunchRequest\x12\x14\n\x0cx_coordinate\x18\x01 \x01(\x05\x12\x14\n\x0cy_coordinate\x18\x02 \x01(\x05\"%\n\x12MissileLaunchReply\x12\x0f\n\x07message\x18\x01 \x01(\t2X\n\x06\x42\x61ttle\x12N\n\x10missile_launched\x12\x1c.battle.MissileLaunchRequest\x1a\x1a.battle.MissileLaunchReply\"\x00\x42\x36\n\x1bio.grpc.examples.helloworldB\x0fHelloWorldProtoP\x01\xa2\x02\x03HLWb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0c\x62\x61ttle.proto\x12\x06\x62\x61ttle\"B\n\x14MissileLaunchRequest\x12\x14\n\x0cx_coordinate\x18\x01 \x01(\x05\x12\x14\n\x0cy_coordinate\x18\x02 \x01(\x05\"%\n\x12MissileLaunchReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"#\n\x10GameDetailsReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"@\n\x12GameDetailsRequest\x12\t\n\x01N\x18\x01 \x01(\x05\x12\t\n\x01M\x18\x02 \x01(\x05\x12\t\n\x01T\x18\x03 \x01(\x05\x12\t\n\x01t\x18\x04 \x01(\x05\x32\xa3\x01\n\x06\x42\x61ttle\x12N\n\x10missile_launched\x12\x1c.battle.MissileLaunchRequest\x1a\x1a.battle.MissileLaunchReply\"\x00\x12I\n\x0fSendGameDetails\x12\x1a.battle.GameDetailsRequest\x1a\x18.battle.GameDetailsReply\"\x00\x42\x36\n\x1bio.grpc.examples.helloworldB\x0fHelloWorldProtoP\x01\xa2\x02\x03HLWb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -26,6 +26,10 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_MISSILELAUNCHREQUEST']._serialized_end=90
   _globals['_MISSILELAUNCHREPLY']._serialized_start=92
   _globals['_MISSILELAUNCHREPLY']._serialized_end=129
-  _globals['_BATTLE']._serialized_start=131
-  _globals['_BATTLE']._serialized_end=219
+  _globals['_GAMEDETAILSREPLY']._serialized_start=131
+  _globals['_GAMEDETAILSREPLY']._serialized_end=166
+  _globals['_GAMEDETAILSREQUEST']._serialized_start=168
+  _globals['_GAMEDETAILSREQUEST']._serialized_end=232
+  _globals['_BATTLE']._serialized_start=235
+  _globals['_BATTLE']._serialized_end=398
 # @@protoc_insertion_point(module_scope)

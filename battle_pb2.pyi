@@ -17,3 +17,21 @@ class MissileLaunchReply(_message.Message):
     MESSAGE_FIELD_NUMBER: _ClassVar[int]
     message: str
     def __init__(self, message: _Optional[str] = ...) -> None: ...
+
+class GameDetailsReply(_message.Message):
+    __slots__ = ["message"]
+    MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    message: str
+    def __init__(self, message: _Optional[str] = ...) -> None: ...
+
+class GameDetailsRequest(_message.Message):
+    __slots__ = ["N", "M", "T", "t"]
+    N_FIELD_NUMBER: _ClassVar[int]
+    M_FIELD_NUMBER: _ClassVar[int]
+    T_FIELD_NUMBER: _ClassVar[int]
+    T_FIELD_NUMBER: _ClassVar[int]
+    N: int
+    M: int
+    T: int
+    t: int
+    def __init__(self, N: _Optional[int] = ..., M: _Optional[int] = ..., T: _Optional[int] = ..., t: _Optional[int] = ...) -> None: ...
