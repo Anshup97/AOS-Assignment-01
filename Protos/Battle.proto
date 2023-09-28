@@ -7,35 +7,121 @@ option objc_class_prefix = "HLW";
 
 package battle;
 
-// The greeting service definition.
+ 
 service Battle {
-  // Sends a greeting
-  rpc missile_launched (stream MissileLaunchRequest) returns (MissileLaunchReply) {}
 
-  rpc SendGameDetails (GameDetailsRequest) returns (GameDetailsReply) {}
+  rpc missile_launched (MissileLaunchedRequest) returns (MissileLaunchedReply) {}
+ 
+  rpc missile_approaching (MissileApproachingRequest) returns (MissileApproachingReply) {}
 
+  rpc status (SoldierIdRequest) returns (SoldierStatus) {}
+
+  rpc status_all(SoldierStatusAllRequest) returns (SoldierStatusAllReply) {}
+
+  rpc GetGameDetails(GetGameDetailsRequest) returns (GetGameDetailsReply) {}
+
+  rpc SendGameDetails(GameDetailsRequest) returns (GameDetailsReply) {}
+
+  rpc GetSoldierMatrix(MatrixRequest) returns (Matrix) {}
+
+  rpc SetSoldierMatrix(Matrix) returns (MatrixRequest) {}
+
+  rpc SendGameDetailsToSoldiers (GameDetailsRequest) returns (GameDetailsReply) {}
+
+  rpc SetCommander (CommanderRequest) returns (CommanderReply) {}
+
+  rpc GetCommander (GetCommanderRequest) returns (GetCommanderReply) {}
+
+} 
+
+message GetCommanderReply {
+  string commanderId = 1;
 }
 
-// The request message containing the user's name.
-message MissileLaunchRequest {
-  int32 x_coordinate = 1;
-  int32 y_coordinate = 2;
-}
-
-message MissileLaunchReply {
+message GetCommanderRequest {
   string message = 1;
 }
 
-message GameDetailsReply {
+message CommanderRequest {
+  string commanderId = 1;
+}
+
+message CommanderReply {
   string message = 1;
+}
+
+message MissileLaunchedRequest {
+  string missile_type = 1;
+  int32 x_coordinate = 2;
+  int32 y_coordinate = 3;
+}
+
+message MissileLaunchedReply {
+  string message = 1;
+}
+
+message MissileApproachingRequest {
+  string missile_type = 1;
+  int32 x_coordinate = 2;
+  int32 y_coordinate = 3;
+}
+
+message MissileApproachingReply {
+  string message = 1;
+}
+
+message SoldierIdRequest {
+  int32 soldierId = 1;
+}
+
+message SoldierStatus {
+  bool isAlive = 1;
+}
+
+message SoldierStatusAllRequest {
+  string message = 1;
+}
+
+message SoldierStatusAllReply {
+  string statuses = 1;
 }
 
 message GameDetailsRequest {
-
   int32 N = 1;
   int32 M = 2;
   int32 T = 3;
   int32 t = 4;
+}
+
+message GameDetailsReply {
+
+  string message = 1;
 
 }
 
+message GetGameDetailsRequest {
+  string message = 1;
+}
+
+message GetGameDetailsReply {
+  int32 N = 1;
+  int32 M = 2;
+  int32 T = 3;
+  int32 t = 4;
+}
+
+message MatrixValues {
+  string value = 1;
+}
+
+message MatrixRows {
+  repeated MatrixValues row = 1;
+}
+
+message Matrix {
+  repeated MatrixRows matrix = 1;
+}
+
+message MatrixRequest {
+  string message = 1;
+}

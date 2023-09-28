@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0c\x62\x61ttle.proto\x12\x06\x62\x61ttle\"B\n\x14MissileLaunchRequest\x12\x14\n\x0cx_coordinate\x18\x01 \x01(\x05\x12\x14\n\x0cy_coordinate\x18\x02 \x01(\x05\"%\n\x12MissileLaunchReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"#\n\x10GameDetailsReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"@\n\x12GameDetailsRequest\x12\t\n\x01N\x18\x01 \x01(\x05\x12\t\n\x01M\x18\x02 \x01(\x05\x12\t\n\x01T\x18\x03 \x01(\x05\x12\t\n\x01t\x18\x04 \x01(\x05\x32\xa3\x01\n\x06\x42\x61ttle\x12N\n\x10missile_launched\x12\x1c.battle.MissileLaunchRequest\x1a\x1a.battle.MissileLaunchReply\"\x00\x12I\n\x0fSendGameDetails\x12\x1a.battle.GameDetailsRequest\x1a\x18.battle.GameDetailsReply\"\x00\x42\x36\n\x1bio.grpc.examples.helloworldB\x0fHelloWorldProtoP\x01\xa2\x02\x03HLWb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0c\x62\x61ttle.proto\x12\x06\x62\x61ttle\"(\n\x11GetCommanderReply\x12\x13\n\x0b\x63ommanderId\x18\x01 \x01(\t\"&\n\x13GetCommanderRequest\x12\x0f\n\x07message\x18\x01 \x01(\t\"\'\n\x10\x43ommanderRequest\x12\x13\n\x0b\x63ommanderId\x18\x01 \x01(\t\"!\n\x0e\x43ommanderReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"Z\n\x16MissileLaunchedRequest\x12\x14\n\x0cmissile_type\x18\x01 \x01(\t\x12\x14\n\x0cx_coordinate\x18\x02 \x01(\x05\x12\x14\n\x0cy_coordinate\x18\x03 \x01(\x05\"\'\n\x14MissileLaunchedReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"]\n\x19MissileApproachingRequest\x12\x14\n\x0cmissile_type\x18\x01 \x01(\t\x12\x14\n\x0cx_coordinate\x18\x02 \x01(\x05\x12\x14\n\x0cy_coordinate\x18\x03 \x01(\x05\"*\n\x17MissileApproachingReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"%\n\x10SoldierIdRequest\x12\x11\n\tsoldierId\x18\x01 \x01(\x05\" \n\rSoldierStatus\x12\x0f\n\x07isAlive\x18\x01 \x01(\x08\"*\n\x17SoldierStatusAllRequest\x12\x0f\n\x07message\x18\x01 \x01(\t\")\n\x15SoldierStatusAllReply\x12\x10\n\x08statuses\x18\x01 \x01(\t\"@\n\x12GameDetailsRequest\x12\t\n\x01N\x18\x01 \x01(\x05\x12\t\n\x01M\x18\x02 \x01(\x05\x12\t\n\x01T\x18\x03 \x01(\x05\x12\t\n\x01t\x18\x04 \x01(\x05\"#\n\x10GameDetailsReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"(\n\x15GetGameDetailsRequest\x12\x0f\n\x07message\x18\x01 \x01(\t\"A\n\x13GetGameDetailsReply\x12\t\n\x01N\x18\x01 \x01(\x05\x12\t\n\x01M\x18\x02 \x01(\x05\x12\t\n\x01T\x18\x03 \x01(\x05\x12\t\n\x01t\x18\x04 \x01(\x05\"\x1d\n\x0cMatrixValues\x12\r\n\x05value\x18\x01 \x01(\t\"/\n\nMatrixRows\x12!\n\x03row\x18\x01 \x03(\x0b\x32\x14.battle.MatrixValues\",\n\x06Matrix\x12\"\n\x06matrix\x18\x01 \x03(\x0b\x32\x12.battle.MatrixRows\" \n\rMatrixRequest\x12\x0f\n\x07message\x18\x01 \x01(\t2\xbe\x06\n\x06\x42\x61ttle\x12R\n\x10missile_launched\x12\x1e.battle.MissileLaunchedRequest\x1a\x1c.battle.MissileLaunchedReply\"\x00\x12[\n\x13missile_approaching\x12!.battle.MissileApproachingRequest\x1a\x1f.battle.MissileApproachingReply\"\x00\x12;\n\x06status\x12\x18.battle.SoldierIdRequest\x1a\x15.battle.SoldierStatus\"\x00\x12N\n\nstatus_all\x12\x1f.battle.SoldierStatusAllRequest\x1a\x1d.battle.SoldierStatusAllReply\"\x00\x12N\n\x0eGetGameDetails\x12\x1d.battle.GetGameDetailsRequest\x1a\x1b.battle.GetGameDetailsReply\"\x00\x12I\n\x0fSendGameDetails\x12\x1a.battle.GameDetailsRequest\x1a\x18.battle.GameDetailsReply\"\x00\x12;\n\x10GetSoldierMatrix\x12\x15.battle.MatrixRequest\x1a\x0e.battle.Matrix\"\x00\x12;\n\x10SetSoldierMatrix\x12\x0e.battle.Matrix\x1a\x15.battle.MatrixRequest\"\x00\x12S\n\x19SendGameDetailsToSoldiers\x12\x1a.battle.GameDetailsRequest\x1a\x18.battle.GameDetailsReply\"\x00\x12\x42\n\x0cSetCommander\x12\x18.battle.CommanderRequest\x1a\x16.battle.CommanderReply\"\x00\x12H\n\x0cGetCommander\x12\x1b.battle.GetCommanderRequest\x1a\x19.battle.GetCommanderReply\"\x00\x42\x36\n\x1bio.grpc.examples.helloworldB\x0fHelloWorldProtoP\x01\xa2\x02\x03HLWb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -22,14 +22,46 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'\n\033io.grpc.examples.helloworldB\017HelloWorldProtoP\001\242\002\003HLW'
-  _globals['_MISSILELAUNCHREQUEST']._serialized_start=24
-  _globals['_MISSILELAUNCHREQUEST']._serialized_end=90
-  _globals['_MISSILELAUNCHREPLY']._serialized_start=92
-  _globals['_MISSILELAUNCHREPLY']._serialized_end=129
-  _globals['_GAMEDETAILSREPLY']._serialized_start=131
-  _globals['_GAMEDETAILSREPLY']._serialized_end=166
-  _globals['_GAMEDETAILSREQUEST']._serialized_start=168
-  _globals['_GAMEDETAILSREQUEST']._serialized_end=232
-  _globals['_BATTLE']._serialized_start=235
-  _globals['_BATTLE']._serialized_end=398
+  _globals['_GETCOMMANDERREPLY']._serialized_start=24
+  _globals['_GETCOMMANDERREPLY']._serialized_end=64
+  _globals['_GETCOMMANDERREQUEST']._serialized_start=66
+  _globals['_GETCOMMANDERREQUEST']._serialized_end=104
+  _globals['_COMMANDERREQUEST']._serialized_start=106
+  _globals['_COMMANDERREQUEST']._serialized_end=145
+  _globals['_COMMANDERREPLY']._serialized_start=147
+  _globals['_COMMANDERREPLY']._serialized_end=180
+  _globals['_MISSILELAUNCHEDREQUEST']._serialized_start=182
+  _globals['_MISSILELAUNCHEDREQUEST']._serialized_end=272
+  _globals['_MISSILELAUNCHEDREPLY']._serialized_start=274
+  _globals['_MISSILELAUNCHEDREPLY']._serialized_end=313
+  _globals['_MISSILEAPPROACHINGREQUEST']._serialized_start=315
+  _globals['_MISSILEAPPROACHINGREQUEST']._serialized_end=408
+  _globals['_MISSILEAPPROACHINGREPLY']._serialized_start=410
+  _globals['_MISSILEAPPROACHINGREPLY']._serialized_end=452
+  _globals['_SOLDIERIDREQUEST']._serialized_start=454
+  _globals['_SOLDIERIDREQUEST']._serialized_end=491
+  _globals['_SOLDIERSTATUS']._serialized_start=493
+  _globals['_SOLDIERSTATUS']._serialized_end=525
+  _globals['_SOLDIERSTATUSALLREQUEST']._serialized_start=527
+  _globals['_SOLDIERSTATUSALLREQUEST']._serialized_end=569
+  _globals['_SOLDIERSTATUSALLREPLY']._serialized_start=571
+  _globals['_SOLDIERSTATUSALLREPLY']._serialized_end=612
+  _globals['_GAMEDETAILSREQUEST']._serialized_start=614
+  _globals['_GAMEDETAILSREQUEST']._serialized_end=678
+  _globals['_GAMEDETAILSREPLY']._serialized_start=680
+  _globals['_GAMEDETAILSREPLY']._serialized_end=715
+  _globals['_GETGAMEDETAILSREQUEST']._serialized_start=717
+  _globals['_GETGAMEDETAILSREQUEST']._serialized_end=757
+  _globals['_GETGAMEDETAILSREPLY']._serialized_start=759
+  _globals['_GETGAMEDETAILSREPLY']._serialized_end=824
+  _globals['_MATRIXVALUES']._serialized_start=826
+  _globals['_MATRIXVALUES']._serialized_end=855
+  _globals['_MATRIXROWS']._serialized_start=857
+  _globals['_MATRIXROWS']._serialized_end=904
+  _globals['_MATRIX']._serialized_start=906
+  _globals['_MATRIX']._serialized_end=950
+  _globals['_MATRIXREQUEST']._serialized_start=952
+  _globals['_MATRIXREQUEST']._serialized_end=984
+  _globals['_BATTLE']._serialized_start=987
+  _globals['_BATTLE']._serialized_end=1817
 # @@protoc_insertion_point(module_scope)

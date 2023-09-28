@@ -1,70 +1,107 @@
 from concurrent import futures
 import logging
+
 import time
+
 import grpc
 import battle_pb2
 import battle_pb2_grpc
-import SoldierClient_pb2
-import SoldierClient_pb2_grpc
-import random
-import Soldier
-
+import logging
 
 class Battle(battle_pb2_grpc.BattleServicer):
-    commanderId = 0
-    x_coord = -1234
-    y_coord = -1234
+    #Battle details received from User.
     N = 0
     M = 0
     T = 0
     t = 0
-    soldiersList = []
-    matrix = [[]]
 
+    #Matrix passed between commander, soldier and user.
+    matrix = []
+    matrixSet = False
+    matrixRequest = 0
+    x_coordinates = -1234
+    y_coordinates = -1234
+    missile_type = ""
+    missileLaunched = False
+    commanderId = ""
+
+    #Receive battle details from User and sending it to the users.
     def SendGameDetails(self, request, context):
-        self.T = request.T
-        self.N = request.N
-        self.M = request.M
-        self.t = request.t
-        return battle_pb2.GameDetailsReply(message="Game Details Received!!")
+        Battle.N = request.N
+        Battle.M = request.M
+        Battle.T = request.T
+        Battle.t = request.t
+        with grpc.insecure_channel("localhost:50052") as channel:
+            stub = battle_pb2_grpc.BattleStub(channel)
+            response = stub.SendGameDetailsToSoldiers(battle_pb2.GameDetailsRequest(N=Battle.N, M=Battle.M, T=Battle.T, t=Battle.t))
+            print(response.message)
+        return battle_pb2.GameDetailsReply(message="Game Details Received By Commander.!!!")
     
-    def createSoldiers(self):
-        N = self.N
-        matrix = [["-" for i in range(self.N)] for j in range(self.N)]
-        M = self.M
-        noOfZeros = len(str(M))
-        portNo = 50052
-        for i in range(1, M+1):
-            row = random.randint(0, N-1)
-            col = random.randint(0, N-1)
-            while matrix[row][col] != "-":
-                row = random.randint(0, N-1)
-                col = random.randint(0, N-1)
-            id = ("S" + "0"*(noOfZeros-len(str(i))) + str(i)) if i < pow(10, noOfZeros) else ("S" + str(i))
-            matrix[row][col] = id
-            soldier = Soldier(id, random.randint(0, 4), (row, col), True, portNo)
-            self.soldiersList.append(soldier)
-            portNo += 1
-        self.matrix = matrix
-
-    def SoldierReady(self, request, context):
-        for i in range(self.T):
-            yield SoldierClient_pb2.MissileApproachingReply(x_coordinate=self.x_coord, y_coordinate=self.y_coord)
-            time.sleep(self.t)
-
-    # def missile_approaching(self, request, context):
-    #     with grpc.insecure_channel("localhost:50052") as channel:
-    #         stub = SoldierClient_pb2_grpc.SoldierClientStub(channel)
-    #         response = stub.missile_approaching(SoldierClient_pb2.MissileApproachingRequest(x_coordinate=self.x_coord, y_coordinate=self.y_coord))
-    #         print("Soldier client received: " + str(response.x_coordinate) + " " + str(response.y_coordinate))
-    #         return
-        
+    #Receive updated matrix from soldiers.
+    def SetSoldierMatrix(self, request, context):
+        Battle.matrixSet = True
+        Battle.matrixRequest = request.matrix
+        n = Battle.N
+        matrix1 = []
+        for i in request.matrix:
+            matrix1.append(list(i.row))
+        Battle.matrix = [["-" for i in range(n)] for j in range(n)]
+        for i in range(n):
+            for j in range(n):
+                Battle.matrix[i][j] = matrix1[i][j].value
+        return battle_pb2.MatrixRequest(message="Received Updated Matrix from Soldiers...")
+    
+    #Sends matrix to the user.
+    def GetSoldierMatrix(self, request, context):
+        protoMat = []
+        N = Battle.N
+        while Battle.matrixSet == False:
+            time.sleep(1)
+        for i in range(N):
+            ro = []
+            for j in range(N):
+                val = battle_pb2.MatrixValues(value=Battle.matrix[i][j])
+                ro.append(val)
+            protoRow = battle_pb2.MatrixRows(row=ro)
+            protoMat.append(protoRow)
+        Battle.matrixSet = False
+        return battle_pb2.Matrix(matrix=protoMat)
+    
+    #Set commander initially and after elections.
+    def SetCommander(self, request, context):
+        Battle.commanderId = request.commanderId
+        return battle_pb2.CommanderReply(message="Commander Set to " + Battle.commanderId)
+    
+    #Used by client to get commander information.
+    def GetCommander(self, request, context):
+        return battle_pb2.GetCommanderReply(commanderId=Battle.commanderId)
+    
+    #Missile type and coordinates received from user.
     def missile_launched(self, request, context):
-        self.x_coord = request.x_coordinate
-        self.y_coord = request.y_coordinate
-        self.SoldierReady(request, context)
-        return battle_pb2.MissileLaunchReply(message="Missile Launched!!! \n X-axis = " + 
-                                             str(request.x_coordinate) + " Y-axis = " + str(request.y_coordinate))
+        print(request.missile_type, request.x_coordinate, request.y_coordinate)
+        Battle.missile_type = request.missile_type
+        Battle.x_coordinates = request.x_coordinate
+        Battle.y_coordinates = request.y_coordinate
+        Battle.missile_approaching_soldiers(request.missile_type, (request.x_coordinate, request.y_coordinate))
+        return battle_pb2.MissileLaunchedReply(message="Commander received the coordinates from user!!!")
+    
+    #Sends missile coordinates to soldiers.
+    def missile_approaching_soldiers(missile_typ, missile_coordinates):
+        with grpc.insecure_channel("localhost:50052") as channel:
+            stub = battle_pb2_grpc.BattleStub(channel)
+            response = stub.missile_approaching(battle_pb2.MissileApproachingRequest(missile_type=missile_typ,
+                                                                                    x_coordinate=missile_coordinates[0],
+                                                                                    y_coordinate=missile_coordinates[1]))
+            print(response.message)
+        return
+    
+    #Gets status of all soldiers.
+    def status_all(self, request, context):
+        with grpc.insecure_channel("localhost:50052") as channel:
+            stub = battle_pb2_grpc.BattleStub(channel)
+            response = stub.status_all(battle_pb2.SoldierStatusAllRequest(message="Send status of all soldiers."))
+            return battle_pb2.SoldierStatusAllReply(statuses=response.statuses)
+
 
 def serve():
     port = "50051"
