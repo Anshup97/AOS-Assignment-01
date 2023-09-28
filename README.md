@@ -2,9 +2,10 @@ Missile Defense System
 
 ## Overview
 
-The Missile Defense System is a simulation program that models a battlefield with soldiers and a commander.
+The Missile Defense System is a user interactive distributed application that models a battlefield with soldiers and a commander.
+The User(client) interacts with the Commander (Server) which relays the commands to Soldiers(Clients). 
 The system is designed to manage soldier positions, detect incoming missiles, and coordinate soldier actions to minimize casualties.
-It also includes a commander election mechanism.After T time, which is the duration of battle, if >50% soldiers are alive, the battle
+It also includes a commander election mechanism. After T time, which is the duration of battle, if >50% soldiers are alive, the battle
 is won,otherwise not.
 
 ## Installation
@@ -48,7 +49,7 @@ Follow these steps to set up and run the Missile Defense System:
 
 1. Clone the repository to get the example code:
 
-   git clone https://github.com/yourusername/Battlefield.git
+   git clone "https://github.com/Anshup97/AOS-Project.git"
    cd Battlefield
    
 
