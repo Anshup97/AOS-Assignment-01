@@ -49,8 +49,8 @@ Follow these steps to set up and run the Missile Defense System:
 
 1. Clone the repository to get the example code:
 
-   git clone "https://github.com/Anshup97/AOS-Project.git"
-   cd Battlefield
+   git clone "https://github.com/Anshup97/AOS-Assignment-01.git"
+   cd AOS-Assignemnt-01
    
 
 ###Run the Battlefield application
